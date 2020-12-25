@@ -24,13 +24,13 @@ DB_USER = os.environ.get('DB_USER')
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'e_o&m=xn0$0)g3ruo3k2lgv9=@m(z-%#9lu$q!#$_wp9)z=g)@'
-# SECRET_KEY = os.environ.get('SECRET_KEY')
+#SECRET_KEY = 'e_o&m=xn0$0)g3ruo3k2lgv9=@m(z-%#9lu$q!#$_wp9)z=g)@'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://django-ideas.herokuapp.com/']
 
 
 # Application definition
