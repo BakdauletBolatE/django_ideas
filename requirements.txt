@@ -6,7 +6,6 @@ attrs==20.3.0
 backcall==0.2.0
 bcrypt==3.2.0
 beautifulsoup4==4.9.3
-btrfsutil==5.9
 CacheControl==0.12.6
 cachetools==4.1.1
 caffeine-ng==3.4.2
