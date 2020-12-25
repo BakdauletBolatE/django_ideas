@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Content'
+    'Content',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -139,6 +140,25 @@ MEDIA_ROOT = os.path.join(BASE_DIR,"media")
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+AMAZON_CREDENTIAL = {
+    'ACCESS_KEY_ID': 'AKIATPRWSA2QAQTLCLGE',
+    'SECRET_ACCESS_KEY': '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',
+    'STOREGE_BUCKET_NAME': 'djangoideas2',
+}
+
+AWS_ACCESS_KEY_ID = AMAZON_CREDENTIAL['ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = AMAZON_CREDENTIAL['SECRET_ACCESS_KEY']
+AWS_STORAGE_BUCKET_NAME = AMAZON_CREDENTIAL['STOREGE_BUCKET_NAME']
+AWS_S_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl':'max-age=86490',
+}
+MEDIAFILES_LOCATION = 'media'
+DEFAULT_FILE_STORAGE = 'Management.storage_backends.MediaStorage'
+
+
+
 
 EMAIL_HOST = 'smtp.mail.ru'
 EMAIL_PORT = '465'
