@@ -1,0 +1,35 @@
+{% extends 'app.html' %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col justify-content-center">
+            <button class="mt-8  btn-bg--primary btn"><a class="nav-linkk" href="{% url 'ideas:addI' %}">Жаңа ұсыныс тастау</a></button>
+        </div>
+    </div>
+<table class="mt-2 table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Үсыныс</th>
+        <th scope="col">Өзгеріс еңгізу</th>
+        <th scope="col">Ортақ рейтинг</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for post in posts %}
+      <tr>
+        <th scope="row">{{post.id}}</th>
+        <td>{{post.title}}</td>
+        <td><a href="{% url 'ideas:updatess' post.id %}"><i class="fas fa-edit"></i></i></a></td>
+        {% if post.rating %}
+        <td>Сіздің рейтингіңіз: {{post.rating.overall_ratinge}} </td>
+        {% else %}
+        <td> Күтіңіз сіздің балдарыңыз жақын арада қойылатын болады </td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+      
+    </tbody>
+  </table>
+</div>
+{% endblock %}

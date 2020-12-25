@@ -1,0 +1,13 @@
+{% extends 'app.html' %}
+{% block content %}
+<div class="row mx-auto">
+    <div class="col-12 ">
+        <h1>{{ideas.title}}</h1>
+        <p>Балл: {{ideas.rating}}</p>
+        <h2>{{ideas.description}}</h2>
+        {% for photo in ideas.photo.all %}
+        <img src="{{ photo.photo.url }}" />
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
