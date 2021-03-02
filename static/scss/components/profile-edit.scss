@@ -1,0 +1,92 @@
+.profile-edit{
+    background-color: white;
+    border-radius: 1rem;
+    padding: 8rem;
+}
+.fileform { 
+    background-color: #bebebe;
+    border: 1px solid #CCCCCC;
+    border-radius: 1rem;
+    cursor: pointer;
+    height: 30rem;
+    overflow: hidden;
+    padding: 2px;
+    position: relative;
+    text-align: left;
+    border:none;
+    vertical-align: middle;
+    width: 30rem;
+}
+ 
+.fileform .selectbutton { 
+    background-color: #A2A3A3;
+    border: 1px solid #939494;
+    border-radius: 2px;
+    color: #FFFFFF;
+    float: right;
+    opacity: 0;
+    font-size: 16px;
+    height: 20px;
+    line-height: 20px;
+    overflow: hidden;
+    padding: 2px 6px;
+    text-align: center;
+    vertical-align: middle;
+    width: 50px;
+}
+ 
+.fileform #upload{
+    position:absolute; 
+    top:0; 
+    left:0; 
+    width:100%; 
+    -moz-opacity: 0; 
+    filter: alpha(opacity=0); 
+    opacity: 0; 
+    font-size: 150px; 
+    height: 30rem; 
+    z-index:20;
+}
+
+.fileform #fileformlabel { 
+    background-color: #bebebe;
+    float: left;
+    height: 30rem;
+    line-height: 30rem;
+    text-align: center;
+    font-size: 2.5rem;
+    color:white;
+    width: 100%;
+    overflow: hidden;
+    padding: 2px;
+    vertical-align: middle;
+    
+    }
+
+    #id_specialization{
+        width: 100%;
+        height: 4rem;
+        border:none;
+       
+        border-radius: 1rem;
+        background-color: #bebebe;
+    }
+
+
+.messages{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.message-item{
+    padding: 2rem;
+    margin: 2rem;
+    background: rgb(107, 159, 255);
+    color:white;
+    border: 2px solid rgb(0, 227, 243);
+    border-radius: 1.5rem;
+}
+.error{
+    background: rgb(255, 77, 136);
+    border: 2px solid rgb(255, 25, 25);
+}

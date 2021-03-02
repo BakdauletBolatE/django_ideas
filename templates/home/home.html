@@ -1,173 +1,407 @@
 {% extends 'app.html' %}
-{% load static %}
 {% block content %}
-
-  <!-- =========== Start of Hero ============ -->
-  <section class="hero hero--full hero--v10 d-flex align-items-center hidden">
-    <div class="svg-shape--top--right col-12 col-lg-6 p-0">
-        <div class="hero__diagonal-shape">
-            <img src="{% static 'img/layout/diagonal-shape-1.svg' %}" alt="wave" class="svg fill-primary-light--1 w-100">
-        </div>
-    </div>
-    <!-- end of diagonal shape -->
+<section class="greeting">
     <div class="container">
-        <div class="row flex-column-reverse flex-lg-row reveal">
-            <div class="col-12 col-md-10 col-lg-7 mx-auto mx-lg-0 text-center text-lg-left z-index2">
-                <div class="hero-content">
-                    <h1 class="hero__title h2-font mb-2">Қаламыздың
-                        <br> <span class="color--primary font-w--700">Дамуына көмектес</span></h1>
-                    <p class="hero__description text-color--700 opacity--80 font-size--20 mb-3 mb-lg-4 pr-xl-10">Өзіңіздің ұсынысыңызды айту арқылы қаланың өркендеуіне ғана емес өзіңізге бонустарда жинауға болады</p>
-                    <!-- end of text content -->
-                    <div href="#" class="btn btn-bg--cta--4 btn-hover--3d rounded--full">
-                        {% if request.user.is_authenticated %}
-                        <span class="btn__text"> <a class="nav-link nav-linkk" href="{% url 'ideas:addI' %}">Жаңа идея қос!</a></span>
-                        {% else %}
-                        <span class="btn__text"> <a class="nav-link" href="{% url 'register' %}">Тіркелу</a></span>
-                        {% endif %}
+        {% if messages %}
+        <ul class="messages mt-5">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }} message-item"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <div class="grid4 mt-5">
+            {% for category in categories %}
+            <a href="{% url 'ideas:ilist' category.id %}">
+                <div class="icon-box">
+                    <div class="icon-box__icon">
+                        <i class="{{category.ficon}}"></i>
                     </div>
-                   
-                    <!-- end of button -->
+                    <h4 class="icon-box__title">{{category.name}}</h4>
                 </div>
-                <!-- end of content -->
-            </div>
-            <!-- end of col -->
-            <div class="col-12 col-lg-6 mt-6 mt-lg-0 mb-4 mb-lg-0 pl-lg-4 pos-abs-lg-vertical-center pos-right hero__image">
-                <picture><img src="{% static 'img/hero-11.png' %}" alt="hero-image" class="img-fluid"></picture>
-            </div>
-            <!-- end of col -->
-        </div>
-        <!-- end of row -->
-    </div>
-</section>
-<!-- =========== End of Hero ============ -->
-
-<!-- =========== Start of Core News ============ -->
-<section class="space bg-color--primary hidden" id="news">
-    <div class="svg-shape--top h-100">
-        <img src="{% static 'img/layout/diagonal-shape-2.svg' %}" class="svg h-100" alt="svg">
-    </div>
-    <!-- end of left side svg shape -->
-    <div class="background-holder background--top--right">
-        <img src="{% static 'img/layout/polygon-1.png' %}" alt="wave" class="background-image-holder">
-    </div>
-    <!-- end of top right shape -->
-    <div class="section-overlap bg-color--primary-light--1 pos-abs-bottom jsElement" data-height="275"></div>
-    <!-- end of section overlap bg -->
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-md-10 col-lg-4 mt-lg-3 reveal text-center text-sm-left">
-                <span class="label label--sm label-bg--light--100 mb-2">Рейтингісі</span>
-                <h2 class="mb-3">Ең жоғарғы ұсыныстар</h2>
-                <p class="mb-5">SpaceMax is designed to pioneer the plasma architecture, the leading scalability solution for Ethereum Layer 2. The SpaceMax network is a stakeholder and infinitely scalable blockchain for plasma with a decentralized.</p>
-                <a href="#" class="btn btn--transparent color--white">
-                    <span class="btn__text p-0"> Jump to the newsroom <i class="icon icon-arrow-right"></i>
-                    </span>
-                </a>
-            </div>
-            <!-- end of content row -->
-            <div class="col-12 col-sm-5 col-lg-8 remove-space-sm--bottom mt-8 mx-auto  mx-sm-0">
-                {% for post in posts %}
-                <div class="card box-shadow--3 card-hover--3d border--none mb-3">
-               
-                   
-                    {% if post.photo.first.photo.url %}
-                    <a href="#"><img src="{{post.photo.first.photo.url}}" class="card-img-top" alt="news"></a>
-                    {% endif %}
-                    
-                    <div class="card-body d-flex flex-column px-2">
-                        <span class="font-size--14 text-color--400 mb-1">{{post.rating}}</span>
-                        <a href="#" class="card-title h6-font font-w--500 text-color--700 text-hover--primary mb-0">{{ post.title }}</a>
-                    </div>
-                </div>
-                {% endfor %}
-                <!-- end of single card -->
-                <!-- end of single card -->
-            </div>
+            </a>
             
+            {% endfor %}
         </div>
-        <!-- end of row -->
     </div>
 </section>
-<!-- =========== End of Core News ============ -->
 
-
-
-
-
-<!-- =========== Start of Newsletter ============ -->
-<section>
-    <div class=" section-overlap bg-color--primary-light--1 pos-abs-top jsElement" data-height="50%"></div>
-    <!-- end of section overlap bg -->
-
+<section class="main-slider">
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="margintop30px newsletter-form form--v3 position-relative d-lg-flex align-items-center bg-color--primary rounded--10 py-4 p-lg-4 p-xl-7">
-                    <div class="svg-shape--top--right h-100">
-                        <img src="{% static 'img/layout/diagonal-shape-7.svg' %}" alt="wave" class="svg h-100">
+        <div class="swiper-container mt-5">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+              <!-- Slides -->
+              {% for lastidea in lastideas %}
+              <div class="swiper-slide">
+                <div class="main-slide">
+                    <div class="main-slide__text">
+                        <a class="main-slide__link info-btn" href="">{{lastidea.category.name}}</a>
+                        <h1 class="main-slide__title"><a href="{% url 'ideas:idetail' lastidea.id %}">{{lastidea.title}}</a></h1>
+                        <h3 class="main-slide__description">Nec ego a vidit Lorem  markdownum Ilion. Naides ferox vocantem, Iuno artes patrios tamen,
+                            spicea…</h3>
                     </div>
-                    <!-- end of bg -->
-                    <div class="col-12 col-lg-6 pr-lg-5 mb-3 mb-lg-0 text-center text-lg-left reveal">
-                        <h2 class="h3-font color--white">Subscribe our newsletter and get useful information every week</h2>
+                    <div class="main-slide__img">
+                        <img src="{{lastidea.photo.first.photo.url}}" alt="">
                     </div>
-                    <!-- end of title -->
-                    
                 </div>
-                <div class="col-12 col-md-10 col-lg-12 ">
-                    <form action="{% url 'sendEmail' %}" method="POST" class="form bg-color--white-opacity--10 rounded--05 p-1 reveal">
-                        {% csrf_token %}
-                        <div class="input-group d-flex">
-                            {{form}}
-                            <button class="btn btn-hover--splash btn-bg--primary" type="submit"><span class="btn__text"><i class="icon icon-arrow-right"></i></span></button>
+              </div>
+              {% endfor %}              
+            </div>
+            <!-- If we need pagination -->
+            <div class="swiper-pagination"></div>
+            
+          </div>
+    </div>
+</section>
+
+
+
+<section class="mb-5">
+    <div class="container">
+        <div class="grid3 mt-5">
+            {% for lastidea in lastideas %}
+            <div class="horizontal-box">
+                <div class="horizontal-box__img">
+                    <img src="{{lastidea.photo.first.photo.url}}" alt="">
+                </div>
+                <div class="horizontal-box__text">
+                    <h4><a href="{% url 'ideas:idetail' lastidea.id %}">{{lastidea.title}}</a></h4>
+                  
+                    <div class="horizontal-box__footer">
+                        <h6><a href="">{{lastidea.author.username}}</a></h6>
+                        <time>{{lastidea.created_at}}</time>
+                        <span>
+                            <i class="fas fa-street-view"></i>
+                            <span>{{lastidea.time}} минут назад</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<div class="content-page">
+    <div class="container">
+        <h2 class="h2-title mt-5 mb-5">
+            Editors pack
+        </h2>
+        <section class="grid3">
+            <div class="vertical-box">    
+                <div class="vertical-box__text">
+                    <a class="info-btn"><span>Space</span></a>
+                    <h3>Mercury’s 400 C Heat May Help It Make Its Own Ice</h3>
+                    <p>Lorem markdownum transitque nondum, Peliaeque at poterat exegit, urbis quo;
+                        tibi. Cursus mecum adit…</p>
+                    <div class="vertical-box__footer">
+                        <a href=""><img class="vertical-box__footer-img" src="./img/indus.png" alt=""></a>
+                        <div class="vertical-box__footer-text">
+                            <a class="vertical-box__footer-author" href="">John Doe</a>
+                            <div class="vertical-box__footer-time">
+                                <time>May 16,2020</time>
+                                <span>
+                                    <i class="fab fa-vk"></i>
+                                    <span>1 min</span>
+                                </span>
+                            </div>
                         </div>
-                    </form>
-                    <!-- end of from -->
+                    </div> 
                 </div>
             </div>
-            
-            <!-- end of body col -->
-        </div>
-        <!-- end of row -->
-    </div>
-    <!-- end of container -->
-</section>
-<!-- =========== End of Newsletter ============ -->
-
-<!-- =========== Start of Social Buttons ============ -->
-<section class="space--bottom pt-8">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 mx-auto">
-                <div class="icon-fill--wide text-center d-lg-flex justify-content-lg-center flex-wrap reveal">
-                    <a class="t-icon box-shadow--5 rounded--05 m-1 btn-hover--primary" href="#">
-                        <span class="t-icon__brand-icon h4-font text-color--400"><i class="fab fa-telegram-plane"></i></span>
-                        <span class="t-icon__brand-name h5-font font-w--500 text-color--700">telegram</span>
-                    </a>
-                    <a class="t-icon box-shadow--5 rounded--05 m-1 btn-hover--primary" href="#">
-                        <span class="t-icon__brand-icon h4-font text-color--400"><i class="fab fa-reddit-alien"></i></span>
-                        <span class="t-icon__brand-name h5-font font-w--500 text-color--700">subreddit</span>
-                    </a>
-                    <a class="t-icon box-shadow--5 rounded--05 m-1 btn-hover--primary" href="#">
-                        <span class="t-icon__brand-icon h4-font text-color--400"><i class="fab fa-slack"></i></span>
-                        <span class="t-icon__brand-name h5-font font-w--500 text-color--700">slack</span>
-                    </a>
-                    <a class="t-icon box-shadow--5 rounded--05 m-1 btn-hover--primary" href="#">
-                        <span class="t-icon__brand-icon h4-font text-color--400"><i class="fab fa-linkedin-in"></i></span>
-                        <span class="t-icon__brand-name h5-font font-w--500 text-color--700">linkedin</span>
-                    </a>
-                    <a class="t-icon box-shadow--5 rounded--05 m-1 btn-hover--primary" href="#">
-                        <span class="t-icon__brand-icon h4-font text-color--400"><i class="fab fa-twitter"></i></span>
-                        <span class="t-icon__brand-name h5-font font-w--500 text-color--700">twitter</span>
-                    </a>
+            <div class="vertical-box">    
+                <div class="vertical-box__text">
+                    <a class="info-btn"><span>Space</span></a>
+                    <h3>Mercury’s 400 C Heat May Help It Make Its Own Ice</h3>
+                    <p>Lorem markdownum transitque nondum, Peliaeque at poterat exegit, urbis quo;
+                        tibi. Cursus mecum adit…</p>
+                    <div class="vertical-box__footer">
+                        <a href=""><img class="vertical-box__footer-img" src="./img/indus.png" alt=""></a>
+                        <div class="vertical-box__footer-text">
+                            <a class="vertical-box__footer-author" href="">John Doe</a>
+                            <div class="vertical-box__footer-time">
+                                <time>May 16,2020</time>
+                                <span>
+                                    <i class="fab fa-vk"></i>
+                                    <span>1 min</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div> 
                 </div>
-                <!-- end of icon group -->
             </div>
-            <!-- end of col -->
-        </div>
-        <!-- end of row -->
+            <div class="vertical-box">    
+                <div class="vertical-box__text">
+                    <a class="info-btn"><span>Space</span></a>
+                    <h3>Mercury’s 400 C Heat May Help It Make Its Own Ice</h3>
+                    <p>Lorem markdownum transitque nondum, Peliaeque at poterat exegit, urbis quo;
+                        tibi. Cursus mecum adit…</p>
+                    <div class="vertical-box__footer">
+                        <a href=""><img class="vertical-box__footer-img" src="./img/indus.png" alt=""></a>
+                        <div class="vertical-box__footer-text">
+                            <a class="vertical-box__footer-author" href="">John Doe</a>
+                            <div class="vertical-box__footer-time">
+                                <time>May 16,2020</time>
+                                <span>
+                                    <i class="fab fa-vk"></i>
+                                    <span>1 min</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </section>
+        <h2 class="h2-title mt-5 mb-5">
+            Whats New?
+        </h2>
+        <section class="grid3">
+            <div class="flex">
+                <div class="background-box">
+                    <img class="background-box__img" src="./img/space.jpg" alt="">
+                    <a class="info-btn" href="">Physics & Mathematics</a>
+                    <h2 class="background-box__title">Astronomers Detect Most Energetic Outflow From A Distant Quasar</h2>
+                    <div class="vertical-box__footer">
+                        <a href=""><img class="vertical-box__footer-img" src="./img/indus.png" alt=""></a>
+                        <div class="vertical-box__footer-text">
+                            <a class="vertical-box__footer-author" href="">John Doe</a>
+                            <div class="vertical-box__footer-time">
+                                <time>May 16,2020</time>
+                                <span>
+                                    <i class="fab fa-vk"></i>
+                                    <span>1 min</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+                <div class="background-box">
+                    <img class="background-box__img" src="./img/space.jpg" alt="">
+                    <a class="info-btn" href="">Physics & Mathematics</a>
+                    <h2 class="background-box__title">Astronomers Detect Most Energetic Outflow From A Distant Quasar</h2>
+                    <div class="vertical-box__footer">
+                        <a href=""><img class="vertical-box__footer-img" src="./img/indus.png" alt=""></a>
+                        <div class="vertical-box__footer-text">
+                            <a class="vertical-box__footer-author" href="">John Doe</a>
+                            <div class="vertical-box__footer-time">
+                                <time>May 16,2020</time>
+                                <span>
+                                    <i class="fab fa-vk"></i>
+                                    <span>1 min</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+            <div class="flex">
+                <div class="vertical-box">
+                    <div class="vertical-box__img">
+                        <img src="./img/1v.jpg" alt="">
+                    </div>
+                    
+                    <div class="vertical-box__text">
+                        <a class="info-btn"><span>Space</span></a>
+                        <h3>Mercury’s 400 C Heat May Help It Make Its Own Ice</h3>
+                        <p>Lorem markdownum transitque nondum, Peliaeque at poterat exegit, urbis quo;
+                            tibi. Cursus mecum adit…</p>
+                        <div class="vertical-box__footer">
+                            <a href=""><img class="vertical-box__footer-img" src="./img/indus.png" alt=""></a>
+                            <div class="vertical-box__footer-text">
+                                <a class="vertical-box__footer-author" href="">John Doe</a>
+                                <div class="vertical-box__footer-time">
+                                    <time>May 16,2020</time>
+                                    <span>
+                                        <i class="fab fa-vk"></i>
+                                        <span>1 min</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+            <div class="flex">
+                <div class="horizontal-box">
+                    <div class="horizontal-box__img">
+                        <img src="./img/1.jpg" alt="">
+                    </div>
+                    <div class="horizontal-box__text">
+                        <h4>Using Satellites And AI To Help Fight Poverty In Africa</h4>
+                        <div class="horizontal-box__footer">
+                            <h6>Jane Smith</h6>
+                            <time>May 15, 2021</time>
+                            <span>
+                                <i class="fab fa-vk"></i>
+                                <span>1 min</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="horizontal-box">
+                    <div class="horizontal-box__img">
+                        <img src="./img/1.jpg" alt="">
+                    </div>
+                    <div class="horizontal-box__text">
+                        <h4>Using Satellites And AI To Help Fight Poverty In Africa</h4>
+                        <div class="horizontal-box__footer">
+                            <h6>Jane Smith</h6>
+                            <time>May 15, 2021</time>
+                            <span>
+                                <i class="fab fa-vk"></i>
+                                <span>1 min</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="horizontal-box">
+                    <div class="horizontal-box__img">
+                        <img src="./img/1.jpg" alt="">
+                    </div>
+                    <div class="horizontal-box__text">
+                        <h4>Using Satellites And AI To Help Fight Poverty In Africa</h4>
+                        <div class="horizontal-box__footer">
+                            <h6>Jane Smith</h6>
+                            <time>May 15, 2021</time>
+                            <span>
+                                <i class="fab fa-vk"></i>
+                                <span>1 min</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <h2 class="h2-title mt-5 mb-5">
+            Whats New?
+        </h2>
+        <section class="grid3">
+            <div class="vertical-box">
+                <div class="vertical-box__img">
+                    <img src="./img/1v.jpg" alt="">
+                </div>
+                
+                <div class="vertical-box__text">
+                    <a class="info-btn"><span>Space</span></a>
+                    <h3>Mercury’s 400 C Heat May Help It Make Its Own Ice</h3>
+                    <p>Lorem markdownum transitque nondum, Peliaeque at poterat exegit, urbis quo;
+                        tibi. Cursus mecum adit…</p>
+                    <div class="vertical-box__footer">
+                        <a href=""><img class="vertical-box__footer-img" src="./img/indus.png" alt=""></a>
+                        <div class="vertical-box__footer-text">
+                            <a class="vertical-box__footer-author" href="">John Doe</a>
+                            <div class="vertical-box__footer-time">
+                                <time>May 16,2020</time>
+                                <span>
+                                    <i class="fab fa-vk"></i>
+                                    <span>1 min</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+            <div class="vertical-box">
+                <div class="vertical-box__img">
+                    <img src="./img/1v.jpg" alt="">
+                </div>
+                
+                <div class="vertical-box__text">
+                    <a class="info-btn"><span>Space</span></a>
+                    <h3>Mercury’s 400 C Heat May Help It Make Its Own Ice</h3>
+                    <p>Lorem markdownum transitque nondum, Peliaeque at poterat exegit, urbis quo;
+                        tibi. Cursus mecum adit…</p>
+                    <div class="vertical-box__footer">
+                        <a href=""><img class="vertical-box__footer-img" src="./img/indus.png" alt=""></a>
+                        <div class="vertical-box__footer-text">
+                            <a class="vertical-box__footer-author" href="">John Doe</a>
+                            <div class="vertical-box__footer-time">
+                                <time>May 16,2020</time>
+                                <span>
+                                    <i class="fab fa-vk"></i>
+                                    <span>1 min</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+            <div class="vertical-box">
+                <div class="vertical-box__img">
+                    <img src="./img/1v.jpg" alt="">
+                </div>
+                
+                <div class="vertical-box__text">
+                    <a class="info-btn"><span>Space</span></a>
+                    <h3>Mercury’s 400 C Heat May Help It Make Its Own Ice</h3>
+                    <p>Lorem markdownum transitque nondum, Peliaeque at poterat exegit, urbis quo;
+                        tibi. Cursus mecum adit…</p>
+                    <div class="vertical-box__footer">
+                        <a href=""><img class="vertical-box__footer-img" src="./img/indus.png" alt=""></a>
+                        <div class="vertical-box__footer-text">
+                            <a class="vertical-box__footer-author" href="">John Doe</a>
+                            <div class="vertical-box__footer-time">
+                                <time>May 16,2020</time>
+                                <span>
+                                    <i class="fab fa-vk"></i>
+                                    <span>1 min</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+            <div class="vertical-box">
+                <div class="vertical-box__img">
+                    <img src="./img/1v.jpg" alt="">
+                </div>
+                
+                <div class="vertical-box__text">
+                    <a class="info-btn"><span>Space</span></a>
+                    <h3>Mercury’s 400 C Heat May Help It Make Its Own Ice</h3>
+                    <p>Lorem markdownum transitque nondum, Peliaeque at poterat exegit, urbis quo;
+                        tibi. Cursus mecum adit…</p>
+                    <div class="vertical-box__footer">
+                        <a href=""><img class="vertical-box__footer-img" src="./img/indus.png" alt=""></a>
+                        <div class="vertical-box__footer-text">
+                            <a class="vertical-box__footer-author" href="">John Doe</a>
+                            <div class="vertical-box__footer-time">
+                                <time>May 16,2020</time>
+                                <span>
+                                    <i class="fab fa-vk"></i>
+                                    <span>1 min</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+            <div class="vertical-box">
+                <div class="vertical-box__img">
+                    <img src="./img/1v.jpg" alt="">
+                </div>
+                
+                <div class="vertical-box__text">
+                    <a class="info-btn"><span>Space</span></a>
+                    <h3>Mercury’s 400 C Heat May Help It Make Its Own Ice</h3>
+                    <p>Lorem markdownum transitque nondum, Peliaeque at poterat exegit, urbis quo;
+                        tibi. Cursus mecum adit…</p>
+                    <div class="vertical-box__footer">
+                        <a href=""><img class="vertical-box__footer-img" src="./img/indus.png" alt=""></a>
+                        <div class="vertical-box__footer-text">
+                            <a class="vertical-box__footer-author" href="">John Doe</a>
+                            <div class="vertical-box__footer-time">
+                                <time>May 16,2020</time>
+                                <span>
+                                    <i class="fab fa-vk"></i>
+                                    <span>1 min</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </section>
     </div>
-    <!-- end of container -->
-</section>
-<!-- =========== End of Social Buttons ============ -->
-
+</div>
 {% endblock %}

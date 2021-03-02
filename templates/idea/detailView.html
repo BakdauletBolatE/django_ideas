@@ -1,0 +1,145 @@
+{% extends 'app.html' %}
+{% load static %}
+{% block content %}
+<div class="one-page">
+    <div class="container">
+        <div class="big-title">{{idea.title}}</div>
+        <div class="big-title-elements">By <span><a href="#">{{idea.author.username}} </a></span> Published in <span><a href="#">{{idea.category}} </a></span>{{idea.created_at}} {{idea.time}} минут назад </div> 
+        <div class="one-page__blog">
+            <div class="one-page__sidebar">
+                <div class="one-page__rating">
+                    <div >Общий Рейтинг</div>
+                    <div>
+                        <div class="rate">
+                            <div class="rate__active"></div>
+                            <ul class="rate__items">
+                                
+                            </ul>
+                            <!-- <div style="font-size: 10px;">{{idea.rating.all}} </div> -->
+                            <div class="rate__value">{{idea.mainRating}}</div>
+                        </div>
+                        <div class="rate__pointer">Составлено из ({{idea.rating.count}}) рейтингов</div>
+                        <div class="hidden">
+                            <div class="hidden__element">
+                                ass
+                            </div>
+                           
+                        </div>
+                    </div>
+                   {% if check %}
+                   <div>
+                    Вы уже нажали
+                    <div class="rate">
+                        <div class="rate__active"></div>
+                        <ul class="rate__items">
+                            
+                        </ul>
+                        <div class="rate__value">{{rat.overall_ratinge}}</div>
+                    </div>
+                </div>
+                {% else %}
+                       <form method="POST" action="{% url 'ideas:rateIdea' idea.id %}"  class="rating">
+                        {% csrf_token %}
+                        <input type="hidden" name="idea" value="{{idea.id}}">
+                        <input type="hidden" name="user" value="{{request.user.id}}">
+                        <div class="rate__label">Актуалность</div>
+                        <div class="rate rating__set">
+                            <div class="rate__active"></div>
+                            <ul class="rate__items">
+                                <input class="rate__item" value="1" type="radio" name="rating1"/>
+                                <input class="rate__item" value="2" type="radio" name="rating1"/>
+                                <input class="rate__item" value="3" type="radio" name="rating1"/>
+                                <input class="rate__item" value="4" type="radio" name="rating1"/>
+                                <input class="rate__item" value="5" type="radio" name="rating1"/>
+                            </ul>
+                            <div class="rate__value">0</div>
+                        </div>
+                        <div class="rate__label">Популярность</div>
+                        <div class="rate rating__set">
+                            <div class="rate__active"></div>
+                            <ul class="rate__items">
+                                <input class="rate__item" value="1" type="radio" name="rating2"/>
+                                <input class="rate__item" value="2" type="radio" name="rating2"/>
+                                <input class="rate__item" value="3" type="radio" name="rating2"/>
+                                <input class="rate__item" value="4" type="radio" name="rating2"/>
+                                <input class="rate__item" value="5" type="radio" name="rating2"/>
+                            </ul>
+                            <div class="rate__value">0</div>
+                        </div>
+                        <div class="rate__label">Социальность</div>
+                        <div class="rate rating__set">
+                            <div class="rate__active"></div>
+                            <ul class="rate__items">
+                                <input class="rate__item" value="1" type="radio" name="rating3"/>
+                                <input class="rate__item" value="2" type="radio" name="rating3"/>
+                                <input class="rate__item" value="3" type="radio" name="rating3"/>
+                                <input class="rate__item" value="4" type="radio" name="rating3"/>
+                                <input class="rate__item" value="5" type="radio" name="rating3"/>
+                            </ul>
+                            <div class="rate__value">0</div>
+                        </div>
+                        <div class="rate__label">Продуктивность</div>
+                        <div class="rate rating__set">
+                            <div class="rate__active"></div>
+                            <ul class="rate__items">
+                                <input class="rate__item" value="1" type="radio" name="rating4"/>
+                                <input class="rate__item" value="2" type="radio" name="rating4"/>
+                                <input class="rate__item" value="3" type="radio" name="rating4"/>
+                                <input class="rate__item" value="4" type="radio" name="rating4"/>
+                                <input class="rate__item" value="5" type="radio" name="rating4"/>
+                            </ul>
+                            <div class="rate__value">0</div>
+                        </div>
+                        <div class="rate__label">Реалность</div>
+                        <div class="rate rating__set">
+                            <div class="rate__active"></div>
+                            <ul class="rate__items">
+                                <input class="rate__item" value="1" type="radio" name="rating5"/>
+                                <input class="rate__item" value="2" type="radio" name="rating5"/>
+                                <input class="rate__item" value="3" type="radio" name="rating5"/>
+                                <input class="rate__item" value="4" type="radio" name="rating5"/>
+                                <input class="rate__item" value="5" type="radio" name="rating5"/>
+                            </ul>
+                            <div class="rate__value">0</div>
+                        </div>
+                        
+                        <button class="btn mt-2 btn-sm">Поставить рейтинг</button>
+                       
+                    </form>
+                    {% endif %}
+                </div>
+                <div class="one-page__profile">
+                    <div class="one-page__profile-img">
+                        <img src="{{idea.author.profile.photo.url}}" alt="">
+                    </div>
+                    <h2 class="one-page__profile-name">{{idea.author.username}}</h2>
+                    <h3 class="one-page__profile-spec">{{idea.author.profile.specialization.name}}</h3>
+                    <div class="one-page__social">
+                        <div class="one-page__social-i">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                        <div class="one-page__social-i">
+                            <i class="fab fa-facebook"></i>
+                        </div>
+                        <div class="one-page__social-i">
+                            <i class="fab fa-twitter"></i>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+            <div class="one-page__content">
+                <div class="one-page__paragraph">
+                    {{idea.description}}
+                </div>
+                <div class="one-page__images">
+                    {%for photo in idea.photo.all%}
+                    <img class="one-page__image" src="{{photo.photo.url}}" alt="">
+                    {% endfor %}
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

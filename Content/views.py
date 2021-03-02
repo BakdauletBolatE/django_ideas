@@ -1,12 +1,13 @@
 from django.shortcuts import render,redirect
-from Content.models import Ideas,Photo
+from Content.models import Ideas,Photo,ICategory
 from django.forms import formset_factory
-from .forms import IdeasForm,PhotoToIdeas
+from .forms import IdeasForm,PhotoToIdeas,RatingForm
 from django.views.generic.edit import UpdateView
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from .permissions import AuthorPermissionsMixin
 from django.views import View
+
 
 @login_required(login_url='login')
 def home(request):
@@ -49,7 +50,41 @@ class IdeasUpdateView(AuthorPermissionsMixin, UpdateView):
 
 class DetailView(View):
     
-    def get(self,request,pk):
-        ideas = Ideas.objects.get(id=pk)
-        return render(request,"home/detail.html",{"ideas":ideas})
+    def get(self,request,id):
+        idea = Ideas.objects.get(id=id)
+        ratings = idea.rating.all()
+        for rating in ratings:
+            if rating.user.id == request.user.id:
+                rat = rating
+                check = True
+            else:
+                rat = "Nothing"
+                check = False
+        return render(request,"idea/detailView.html",{"idea":idea,"check":check,'rat':rat})
 
+def listIdea(request,id):
+
+        category = ICategory.objects.get(id=id)
+
+        return render(request,"idea/listView.html",{"category":category})
+
+def rateIdea(request,id):
+
+    if request.method == "POST":
+
+        form = RatingForm(request.POST)
+        b = request.POST.get('idea')
+        u = request.POST.get('user')
+        
+        if form.is_valid():
+            idea = Ideas.objects.get(id=id)
+            ratings = idea.rating.all()
+            for rating in ratings:
+                if rating.user.id == request.user.id:
+                    rat = rating
+                    check = True
+                else:
+                    rat = "Nothing"
+                    check = False
+            form.save()
+            return redirect('home')

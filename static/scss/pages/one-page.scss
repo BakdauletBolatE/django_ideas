@@ -1,0 +1,96 @@
+.big-title{
+    font-size: 4.8rem;
+    font-weight: 900;
+    margin-top: 5rem;
+    margin-bottom: 2.5rem;
+    color:#2d3748;
+}
+
+.big-title-elements{
+   
+    font-weight: 400;
+    color:#718096;
+    font-size: 1.6rem;
+    margin-bottom: 3.2rem;
+
+    & span{
+        font-size: 1.6rem;
+        font-weight: 700;
+    }
+}
+
+.one-page__blog{
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-gap: 4rem;
+}
+.one-page__content{
+    background-color: white;
+    border-radius: 0.5rem;
+    margin-bottom: 3.2rem;
+    padding: 3.2rem;
+}
+.one-page__paragraph{
+    font-size: 2rem;
+    font-weight: 400;
+    margin-bottom: 3.2rem;
+    line-height: 3.6rem;
+}
+.one-page__images{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(20rem,1fr));
+    grid-gap:2rem;
+}
+.one-page__image{
+    border-radius: 0.5rem;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.one-page__profile{
+    padding: 3.2rem;
+    background-color: white;
+    border-radius: 0.5rem;
+}
+.one-page__profile-img{
+    width: 21rem;
+    height: 21rem;
+    margin-bottom: 1.6rem;
+    margin: 1.6rem auto;
+    & img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+}
+.one-page__profile-name{
+    font-size: 2rem;
+    display: block;
+    line-height: 2.6rem;
+    margin-bottom: 1.6rem;
+    text-align: center;
+}
+.one-page__profile-spec{
+    font-size: 1.6rem;
+    color:#718096;
+    text-align: center;
+    line-height: 1.33;
+    font-weight: 400;
+}
+.one-page__social{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 70%;
+    font-size: 3.6rem;
+    margin: 1.6rem auto;
+}
+
+
+.one-page__rating{
+    background: white;
+    padding: 3.2rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+}

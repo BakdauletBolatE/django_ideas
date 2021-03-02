@@ -2,73 +2,73 @@
 {% load static %}
 {% block content %}
 
-        <!-- =========== Start of Body ============ -->
-        <section class="space bg-color--primary h-min-100vh d-flex align-items-center">
-            <div class="svg-shape--top w-100 opacity--05">
-                <img src="img/layout/wave-8.svg" alt="wave" class="svg fill--white">
-            </div>
-            <!-- end of whole area svg bg -->
-            <div class="svg-shape--top opacity--10">
-                <img src="img/layout/wave-9.svg" alt="wave" class="svg fill--white">
-            </div>
-            <!-- end of top right mini svg shape -->
-
-            <div class="container">
-                <div class="row ">
-                    <div class="col-12 mx-auto color--white text-center mb-4 mb-lg-5">
-                        <h1 class="h2-font mb-1">Welcome back</h1>
-                        <p class="opacity--60 font-size--20">Fill out the form to get started.</p>
+    <div class="registration mt-5">
+        <div class="container">
+            <div class="grid2 ">
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }} message-item"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                <div class="grid-item mt-5">
+                    <div class="reg-img_b">
+                        <img src="{% static 'img/path504-3.png' %}" class="reg-img">
                     </div>
-                    <div class="col-12 col-sm-10 col-md-8 col-lg-7 col-xl-6 mx-auto">
-                        <div class="form--v5 bg-color--primary-light--1 px-3 py-4 px-md-5 py-md-6 rounded--10">
-                            <form method="POST" class="form" action="">
-                                {% csrf_token %}
-                                <div class="form-group">
-                                    <label class="form__label text-uppercase font-size--15 font-w--500">Email Address:</label>
-                                    {{form.username}}
-                                </div>
-                                <div class="form-group">
-                                    <label class="form__label text-uppercase font-size--15 font-w--500">Email Address:</label>
-                                    {{form.email}}
-                                </div>
-                                <div class="form-group">
-                                    <label for="password" class="form__label text-uppercase font-size--15 font-w--500">Password:</label>
-                                    {{form.password1}}
-                                </div>
-                                <div class="form-group">
-                                    <label for="confirm-password" class="form__label text-uppercase font-size--15 font-w--500">Password:</label>
-                                    {{form.password2}}
-                                </div>
-                                <div class="d-flex justify-content-between flex-column-reverse flex-sm-row align-items-sm-center">
-                                    <p class="text-color--400 font-size--15 mt-2 mt-sm-0">Already have an account? <a href="{% url 'login' %}" class="color--primary">Login</a></p>
-                                    <button class="btn btn-bg--primary btn-size--md btn-hover--3d" type="submit"><span class="btn__text">Get Started</span></button>
-                                </div>
-                            </form>
-                            {{form.errors}}
-                            <!-- end of form -->
-                        </div>
-                        
-                        <!-- end of from area -->
-                    </div>
-                    <!-- end of col -->
+                   
                 </div>
-                <!-- end of row -->
+                <div class="grid-item">
+                    <h1 class="reg-title">
+                        Регистрация на Usyn
+                    </h1>
+                    <p class="reg-p">
+                        1) Lorem ipsum dolor sit amet, consectetur adipiscing elit. <br>
+                        2) Vestibulum ornare mauris venenatis, tempus arcu et, convallis velit. <br>
+                        3) Vivamus sagittis mi non velit pellentesque ultrices. <br>
+                        4) Quisque accumsan augue quis neque tincidunt, quis mattis magna interdum. <br>
+                        5)Nulla at ipsum at lacus rhoncus ultrices scelerisque ac orci in plact tellus sit amet semper mollis. <br>
+                        6) Fusce quis nulla sed metus semper laoreet. <br>
+                        7) Nam cursus libero non ullamcorper vulputate.
+                    </p>
+                </div>
             </div>
-            <!-- end of container -->
-        </section>
-        <!-- =========== End of Body ============ -->
-    </main>
-    <script>
-        const formFields = document.getElementsByTagName('input')
-        formFields[1].placeholder = "Username";
-        formFields[2].placeholder = "Email";
-        formFields[3].placeholder = "Enter password";
-        formFields[4].placeholder = "Re-enter Passwrord";
+            <div class="grid1 mt-5">
+                <form method="POST" class="form" action="{% url 'register' %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <!-- <label for="id_username">{{form.username.label}}</label> -->
+                        {{form.username}}
+                    </div>
+                    <div class="form-group">
+                        <!-- <label class="label" for="id_username">{{form.email.label}}</label> -->
+                        {{form.email}}
+                    </div>
+                    <div class="form-group">
+                        <!-- <label class="label" for="id_username">{{form.password1.label}}</label> -->
+                        {{form.password1}}
+                    </div>
+                    <div class="form-group">
+                        <!-- <label class="label" for="id_username">{{form.password2.label}}</label> -->
+                        {{form.password2}}
+                    </div>
+                    <div class="btns-group">
+                        <button type="submit" class="btn">Далее</button>
+                        <a class="btn btn-inline" href="{% url 'login' %}">Войти</a>
+                    </div>
+                   
+                </form>
+                {{form.errors}}
+                <!-- end of form -->
+            </div>
+        </div>
+        
+    </div>
 
-        for (i in formFields){
-            formFields[i].className += ' form-control'
-        } 
-    </script>
+                            
+                      
+                       
+    
     <script src="js/plugins.min.js"></script>
     <script src="js/app.js"></script>
 {% endblock %}

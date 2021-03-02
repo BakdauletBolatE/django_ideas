@@ -1,5 +1,5 @@
 from django import forms
-from .models import Ideas,Photo
+from .models import Ideas,Photo,Rating
 
 class PhotoToIdeas(forms.ModelForm):
     photo = forms.ImageField(label="photo",widget=forms.FileInput(
@@ -23,3 +23,9 @@ class IdeasForm(forms.ModelForm):
     class Meta(object):
         model = Ideas
         fields = ('id','title','description')
+
+class RatingForm(forms.ModelForm):
+
+    class Meta(object):
+        model = Rating
+        fields = ('__all__')

@@ -1,0 +1,43 @@
+{% extends 'app.html' %}
+{% load static %}
+{% block content %}
+<div class="registration mt-5">
+    <div class="container">
+        <div class="profile-edit">
+            {% if messages %}
+            <ul class="messages ">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }} message-item"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <div class="grid1 mt-3">
+                <form action="{% url 'profilereg' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="grid2-min">
+                        <div class="grid-item">
+                            <input type="hidden" name="user" id="id_user" value="{{request.user.id}}">     
+                            <div class="fileform">
+                                <div id="fileformlabel"></div>
+                              
+                                <input id="upload" type="file" name="photo" accept="image/*" onchange="getName(this.value);" />   
+                            </div>
+                        </div>
+                        <div class="grid-item">
+                            <div class="reg-name">{{request.user.username}}</div>
+                            <label for="id_specialization" class="form-control">Выберите специлизацию</label>
+                            {{profile.specialization}}
+                            <div class="btn-single mt-3">
+                                <button class="btn">Подтвердить</button>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                </form>
+            {{form.errors}}
+        </div>
+        </div>
+    </div>
+   
+{% endblock %}

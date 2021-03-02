@@ -1,0 +1,16 @@
+.h2-title{
+    padding:0px 0px 0px 3.2rem;
+    color:$black;
+    position: relative;
+    display: inline-block;
+    &::after{
+        background-color: #e2e8f0;
+        content: "\A";
+        border-radius: 9999px;
+        position: absolute;
+        height: 100%;
+        width: 5px;
+        top: 0;
+        left: 0;
+    }
+}

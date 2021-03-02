@@ -2,87 +2,47 @@
 {% load static %}
 {% block content %}
 
-
-        <!-- =========== Start of Body ============ -->
-        <section class="space bg-color--primary h-min-100vh d-flex align-items-center">
-            <div class="svg-shape--top w-100 opacity--05">
-                <img src="img/layout/wave-8.svg" alt="wave" class="svg fill--white">
+<div class="registration mt-5">
+    <div class="container">
+        <div class="grid2 ">
+            <div class="grid-item">
+                <h1 class="reg-title">
+                    Авторизация на Usyn
+                </h1>
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }} message-item"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
             </div>
-            <!-- end of whole area svg bg -->
-            <div class="svg-shape--top opacity--10">
-                <img src="img/layout/wave-9.svg" alt="wave" class="svg fill--white">
-            </div>
-            <!-- end of top right mini svg shape -->
-        
-            <div class="container">
-                <div class="row ">
-                    <div class="col-12 mx-auto color--white text-center mb-4 mb-lg-5">
-                        <h1 class="h2-font mb-1">Welcome back</h1>
-                        <p class="opacity--60 font-size--20">Sign in to continue to SpaceMax</p>
-                    </div>
-                    <div class="col-12 col-sm-10 col-md-8 col-lg-7 col-xl-6 mx-auto">
-                        <div class="form--v5 bg-color--primary-light--1 px-3 py-4 px-md-5 pt-md-6 rounded--10">
-                            <form action="" method="POST" class="form">
-                                {% csrf_token %}
-                                <div class="form-group">
-                                    <label class="form__label text-uppercase font-size--15 font-w--500">Name</label>
-                                    <input name="username" id="name" type="text" class="form-control" placeholder="Enter your email address" required/>
-                                </div>
-                                <div class="form-group">
-                                    <div class="d-flex justify-content-between">
-                                        <label for="password" class="form__label text-uppercase font-size--15 font-w--500">Password:</label>
-                                        <small>
-                                            <a href="recover-account.html" class="text-color--400">Forgot password?</a>
-                                        </small>
-                                    </div>
-                                    <input name="password" id="password" type="password" class="form-control" placeholder="Choose a password" required/>
-                                </div>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div>
-                                        <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                        <label class="custom-control-label text-color--400" for="customCheck1">Keep me logged in</label>
-                                        </div>
-                                    </div>
-                                    <button class="btn btn-bg--primary btn-size--md btn-hover--3d" type="submit"><span class="btn__text">Log in</span></button>
-                                </div>
-                            </form>
-                            <!-- end of form -->
-
-                            {% for message in messages %}
-                                <p id="messages">{{ message }}</p>
-                            {% endfor %}
-                            <div class="text-center mt-4 pt-2 border--top">
-                                <p class="text-color--400">Don't have an account? <a href="signup.html" class="color--primary">Signup</a></p>
-                            </div>
-
-                    
-                            <!-- end of bottom text -->
-                        </div>
-                        <!-- end of from area -->
-                    </div>
-                    <!-- end of col -->
+        </div>
+        <div class="grid1 mt-5">
+            <form method="POST" class="form" action="{% url 'login' %}">
+                {% csrf_token %}
+              
+                <div class="form-group">
+                    <!-- <label class="label" for="id_username">{{form.email.label}}</label> -->
+                    {{form.username}}
                 </div>
-                <!-- end of row -->
-            </div>
-            <!-- end of container -->
-        </section>
-        <!-- =========== End of Body ============ -->
-    </main>
-    <script>
-        const formFields = document.getElementsByTagName('input')
-        formFields[1].placeholder = "Username";
-        formFields[2].placeholder = "Email";
-        formFields[3].placeholder = "Enter password";
-        formFields[4].placeholder = "Re-enter Passwrord";
+                <div class="form-group">
+                    <!-- <label class="label" for="id_username">{{form.password1.label}}</label> -->
+                    {{form.password1}}
+                </div>
+                <div class="btns-group">
+                    <button type="submit" class="btn">Войти</button>
+                    <a class="btn btn-inline" href="{% url 'login' %}">Регистрация</a>
+                </div>
+               
+            </form>
+           
+            <!-- end of form -->
+        </div>
+    </div>
+    
+</div>
 
-        for (i in formFields){
-            formFields[i].className += ' form-control'
-        } 
-    </script>
-
-    <script src="js/plugins.min.js"></script>
-    <script src="js/app.js"></script>
     
 
 {% endblock %}

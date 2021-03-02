@@ -1,0 +1,131 @@
+.rating{
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 3rem;
+}
+.rating-title{
+    cursor: pointer;
+    margin-right: 3rem;
+    &:hover{
+        .hidden-rating{
+            opacity: 1;
+            transition: 0.2s ease;
+        }
+    }
+   
+}
+
+
+.hidden-rating{
+    opacity: 0;
+    transition: 0.2s ease;
+    display: inline-flex;
+    padding: 3rem;
+    top:3rem;
+    left:0;
+    background: white;
+    margin-bottom: 2rem;
+    border-radius: 5px;
+    box-shadow: 0px 4px 24px rgba($color: #000000, $alpha: 0.1);
+    position: absolute;
+}
+.rate{
+    display: flex;
+    align-items: center;
+    position: relative;
+    font-size: 4rem;
+    &::before{
+        display: block;
+        width: 100%;
+        height: 100%;
+        top:0;
+        left:0;
+        content: "★★★★★";
+        font-size: 4rem;
+    }
+}
+.rate__active{
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-size: 4rem;
+
+    &::before{
+        position: absolute;
+        top:0;
+        left:0;
+        width: 87%;
+        overflow: hidden;
+        height: 100%;
+        font-size: 4rem;
+        color:rgb(255, 255, 94);
+        content:"★★★★★";
+    }
+}
+.rate__items{
+    display: flex;
+    position: absolute;
+}
+.rate__item{
+    opacity: 0;
+    margin: 0.58rem;
+    flex: 0 0 20%;
+}
+
+.user-img{
+    width: 4rem;
+    height: 4rem;
+
+    & img{
+        width: 100%;
+        border-radius: 50%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
+.hidden-rating__items{
+    display: flex;
+    align-items: center;
+    margin-right: 2rem; 
+    
+
+    & span{
+        margin-left: 1rem;
+    }
+}
+.hidden{
+    position: relative;
+   
+    pointer-events: none;
+    z-index: 0;
+    display: none;
+}
+.hidden__element{
+
+    background: black;
+    color:white;
+    display: block;
+    position: relative;
+    top:0;
+    left:0;
+    z-index: 1;
+
+}
+.rate__pointer{
+    display: block;
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+    &:hover{
+        color:black;
+
+        .hidden{
+            display: block;
+        }
+    }
+}

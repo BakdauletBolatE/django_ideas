@@ -1,0 +1,37 @@
+{% extends 'app.html' %}
+{% block content %}
+<div class="listpage mt-5">
+    <div class="container">
+
+        <div class=grid4>
+            {% for idea in category.idea.all %}
+            <div class="vertical-box">    
+                <div class="vertical-box__img">
+                    <img src="{{ idea.photo.first.photo.url }}" alt="">
+                </div>
+                <div class="vertical-box__text">
+                    <a class="info-btn"><span>{{ idea.category.name }}</span></a>
+                    <h3><a href="{% url 'ideas:idetail' idea.id %}">{{ idea.title }}</a></h3>
+                    <p>Lorem markdownum transitque nondum, Peliaeque at poterat exegit, urbis quo;
+                        tibi. Cursus mecum adit…</p>
+                    <div class="vertical-box__footer">
+                        <a href=""><img class="vertical-box__footer-img" src="{{ idea.author.profile.photo.url }}" alt=""></a>
+                        <div class="vertical-box__footer-text">
+                            <a class="vertical-box__footer-author" href="">{{ idea.author.username }}</a>
+                            <div class="vertical-box__footer-time">
+                                <time>{{idea.created_at}}</time>
+                                <span>
+                                    <i class="fab fa-vk"></i>
+                                    <span>{{idea.time}}</span>
+                                </span>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+           
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
